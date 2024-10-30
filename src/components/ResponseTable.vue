@@ -68,14 +68,11 @@ export default {
     };
 
     const startPolling = () => {
-      if (!pollingInterval) {
+      store.dispatch('fetchResponses'); // Initial fetch
+      pollingInterval = setInterval(() => {
         store.dispatch('fetchResponses');
-        pollingInterval = setInterval(() => {
-          store.dispatch('fetchResponses');
-        }, 1000);
-      }
+      }, 1000);
     };
-
 
     let pollingInterval;
 
