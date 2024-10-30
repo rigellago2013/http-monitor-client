@@ -4,7 +4,7 @@
     <div v-if="error" class="error">{{ error }}</div>
 
     <b-table
-      v-if="!loading && !error && responses.length"
+      v-if="responses.length"
       :items="responses"
       :fields="fields"
       striped
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, onMounted, onUnmounted } from 'vue';
 import { useStore } from 'vuex';
 
 export default {
@@ -38,10 +38,9 @@ export default {
     const error = computed(() => store.getters.error);
     const responses = computed(() => store.getters.allResponses);
 
-    // Define fixed order of headers
     const fields = [
       { key: '_id', label: 'ID' },
-      { key: 'data', label: 'Data' },
+      { key: 'data', label: 'Payload' },
       { key: 'headers', label: 'Headers' },
       { key: 'json', label: 'JSON' },
       { key: 'method', label: 'Method' },
@@ -50,7 +49,6 @@ export default {
     ];
 
     const convertHeaders = (headers) => {
-      // Convert headers object into an array of key-value pairs
       return Object.entries(headers).map(([key, value]) => ({ key, value }));
     };
 
@@ -68,6 +66,26 @@ export default {
         .replace(/^./, str => str.toUpperCase())
         .trim();
     };
+
+    const startPolling = () => {
+      if (!pollingInterval) {
+        store.dispatch('fetchResponses');
+        pollingInterval = setInterval(() => {
+          store.dispatch('fetchResponses');
+        }, 1000);
+      }
+    };
+
+
+    let pollingInterval;
+
+    onMounted(() => {
+      startPolling();
+    });
+
+    onUnmounted(() => {
+      clearInterval(pollingInterval);
+    });
 
     return {
       loading,

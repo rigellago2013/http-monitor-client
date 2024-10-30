@@ -17,19 +17,29 @@ export default createStore({
     SET_ERROR(state, error) {
       state.error = error;
     },
-    ADD_RESPONSE(state, response) {
-      state.responses.unshift(response);
-    }
+    ADD_RESPONSES(state, responses) {
+      state.responses.push(...responses);
+    },
   },
   actions: {
-    async fetchResponses({ commit }) {
+    async fetchResponses({ commit, state }) {
       commit('SET_LOADING', true);
+      commit('SET_ERROR', null); // Reset error state before fetch
       try {
-        const { data } = await axios.get('https://http-monitor-server.vercel.app/ping/history');
-        console.log(data);
-        commit('SET_RESPONSES', data);
+        const { data } = await axios.get('https://http-monitor-server-production.up.railway.app/ping/history');
+        const newResponses = data.filter(response => {
+          return !state.responses.some(existingResponse => existingResponse._id === response._id);
+        });
+  
+        if (newResponses.length) {
+          commit('ADD_RESPONSES', newResponses);
+        }
       } catch (error) {
-        commit('SET_ERROR', error.message);
+        if (axios.isAxiosError(error)) {
+          commit('SET_ERROR', error.response ? error.response.data.message : 'Network error');
+        } else {
+          commit('SET_ERROR', 'An unexpected error occurred');
+        }
       } finally {
         commit('SET_LOADING', false);
       }
