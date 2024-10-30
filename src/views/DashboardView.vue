@@ -16,7 +16,7 @@ export default {
   components: { AppHeader, ResponseTable },
   setup() {
     const store = useStore();
-    const socket = io('https://http-monitor-server-production.up.railway.app:3000');
+    const socket = io('https://http-monitor-server-production.up.railway.app:80');
 
     onMounted(() => {
     store.dispatch('fetchResponses');
