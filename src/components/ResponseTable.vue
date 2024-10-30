@@ -1,6 +1,5 @@
 <template>
   <b-container fluid class="table-container px-4 py-4">
-    <div v-if="loading" class="loading">Loading...</div>
     <div v-if="error" class="error">{{ error }}</div>
 
     <b-table
