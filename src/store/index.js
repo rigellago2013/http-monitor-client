@@ -25,7 +25,7 @@ export default createStore({
     async fetchResponses({ commit }) {
       commit('SET_LOADING', true);
       try {
-        const { data } = await axios.get('https://http-monitor-server-production.up.railway.app/ping/history');
+        const { data } = await axios.get('https://http-monitor-server-q0j184ti2-rigels-projects-85d99a61.vercel.app/ping/history');
         console.log(data);
         commit('SET_RESPONSES', data);
       } catch (error) {
