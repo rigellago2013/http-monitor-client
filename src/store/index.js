@@ -25,7 +25,7 @@ export default createStore({
     async fetchResponses({ commit }) {
       commit('SET_LOADING', true);
       try {
-        const { data } = await axios.get('http://localhost:3000/ping/history?limit=10');
+        const { data } = await axios.get('https://http-monitor-server-production.up.railway.app/ping/history');
         console.log(data);
         commit('SET_RESPONSES', data);
       } catch (error) {
