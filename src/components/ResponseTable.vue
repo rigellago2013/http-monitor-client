@@ -1,6 +1,6 @@
 <template>
   <b-container fluid class="table-container px-4 py-4">
-    <div v-if="error" class="error">{{ error }}</div>
+    <div class="error" v-if="error">{{ error }}</div>
 
     <b-table
       v-if="responses.length"
@@ -11,6 +11,7 @@
       hover
       responsive
       class="styled-table"
+      :class="{ 'fade-in': !loading && !error }"
     >
       <template #cell(headers)="data">
         <b-table :items="convertHeaders(data.item.headers)" bordered small>

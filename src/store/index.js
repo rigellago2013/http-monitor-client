@@ -18,7 +18,11 @@ export default createStore({
       state.error = error;
     },
     ADD_RESPONSES(state, responses) {
-      state.responses.push(...responses);
+      // Use unshift to add new responses at the top
+      state.responses.unshift(...responses);
+    },
+    ADD_RESPONSE(state, response) {
+      state.responses.unshift(response); // Ensures new single response is also added on top
     },
   },
   actions: {
@@ -26,7 +30,7 @@ export default createStore({
       commit('SET_LOADING', true);
       commit('SET_ERROR', null); // Reset error state before fetch
       try {
-        const { data } = await axios.get('https://http-monitor-server-production.up.railway.app/ping/history');
+        const { data } = await axios.get('http://localhost:3000/ping/history');
         const newResponses = data.filter(response => {
           return !state.responses.some(existingResponse => existingResponse._id === response._id);
         });
