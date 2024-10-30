@@ -16,7 +16,7 @@ export default {
   components: { AppHeader, ResponseTable },
   setup() {
     const store = useStore();
-    const socket = io('https://http-monitor-server-q0j184ti2-rigels-projects-85d99a61.vercel.app:3000');
+    const socket = io('https://http-monitor-server-q0j184ti2-rigels-projects-85d99a61.vercel.app');
 
     onMounted(() => {
     store.dispatch('fetchResponses');
