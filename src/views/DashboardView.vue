@@ -16,7 +16,7 @@ export default {
   components: { AppHeader, ResponseTable },
   setup() {
     const store = useStore();
-    const socket = io('wss://http-monitor-server.vercel.app:3000');
+    const socket = io('wss://http-monitor-server.vercel.app');
 
     onMounted(() => {
     store.dispatch('fetchResponses');
