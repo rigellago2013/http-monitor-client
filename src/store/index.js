@@ -30,7 +30,7 @@ export default createStore({
       commit('SET_LOADING', true);
       commit('SET_ERROR', null); // Reset error state before fetch
       try {
-        const { data } = await axios.get('http://http-monitor-server-production.up.railway.app/ping/history');
+        const { data } = await axios.get('https://http-monitor-server-production.up.railway.app/ping/history');
         const newResponses = data.filter(response => {
           return !state.responses.some(existingResponse => existingResponse._id === response._id);
         });
