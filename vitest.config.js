@@ -11,7 +11,11 @@ export default defineConfig({
     css: true,
     alias: {
       '@': path.resolve(__dirname, './src')
-    }
+    },
+    coverage: {
+      reporter: ['text', 'lcov'], // Ensure 'lcov' is included here
+      include: ['src/**/*.js'], // Adjust based on your source files
+    },
   },
   resolve: {
     alias: {
