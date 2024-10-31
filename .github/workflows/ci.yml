@@ -40,7 +40,7 @@ jobs:
         name: codecov-umbrella
         fail_ci_if_error: true
 
-deploy:
+  deploy:
     runs-on: ubuntu-latest
     needs: test-and-lint  # Ensure this runs after tests and linting are successful
     steps:
@@ -54,4 +54,3 @@ deploy:
         working-directory: ./  # Adjust if your project is in a subdirectory
         vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}  # Add this secret in your GitHub repository settings
         vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}  # Add this secret in your GitHub repository settings
-        
