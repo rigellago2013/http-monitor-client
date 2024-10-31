@@ -26,7 +26,7 @@ jobs:
       run: npm run lint || npm run eslint
 
     - name: Run tests with coverage
-      run: npm run coverage
+      run: npm run test:coverage
       env:
         NODE_ENV: test
         VITE_TEST_MODE: true
