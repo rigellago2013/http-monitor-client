@@ -1,5 +1,7 @@
-# http-monitor-client
-
+# http-monitor-client 
+```
+Project url: https://http-monitor-client.vercel.app/
+```
 ## Project setup
 ```
 npm install
